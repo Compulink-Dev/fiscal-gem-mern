@@ -15,7 +15,7 @@ dotenv.config();
 
 // Middleware
 const corsOptions = {
-  origin: "https://fiscal-gem-mern.onrender.com",
+  origin: "http://localhost:5173",
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
   methods: ["GET", "POST", "PUT", "DELETE"],
