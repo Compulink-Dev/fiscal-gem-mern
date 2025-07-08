@@ -57,7 +57,7 @@ routes.forEach(({ path, router }) => {
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Serve static files
-  app.use(express.static(path.join(__dirname, "client", "build")));
+  app.use(express.static("client/build"));
 
   // Handle React routing, return all requests to React app
   app.get(/^(?!\/api).*/, (req, res) => {
