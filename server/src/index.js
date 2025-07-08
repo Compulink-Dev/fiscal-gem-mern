@@ -53,11 +53,9 @@ routeFiles.forEach(({ path, file }) => {
   try {
     console.log(`Attempting to mount routes from ${file} at ${path}`);
     const router = require(file);
-    if (
-      router &&
-      typeof router === "object" &&
-      typeof router.use === "function"
-    ) {
+
+    // Just check router is defined and is an object (Express routers are objects)
+    if (router && typeof router === "object") {
       app.use(path, router);
       console.log(`Successfully mounted routes at ${path}`);
     } else {
@@ -65,7 +63,6 @@ routeFiles.forEach(({ path, file }) => {
     }
   } catch (err) {
     console.error(`Error mounting routes from ${file}:`, err);
-    // You might want to exit the process here if route mounting fails
     process.exit(1);
   }
 });
