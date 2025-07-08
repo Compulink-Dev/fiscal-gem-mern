@@ -92,3 +92,5 @@ router.post("/register", async (req, res) => {
 });
 
 // ... keep other existing routes
+
+module.exports = router;

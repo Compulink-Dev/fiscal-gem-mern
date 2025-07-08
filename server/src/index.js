@@ -37,14 +37,34 @@ const FiscalCounter = require("./models/FiscalCounter");
 const Taxpayer = require("./models/Taxpayer");
 
 // API Routes
-app.use("/api/auth", require("./routes/auth"));
-app.use("/api/users", require("./routes/users"));
-app.use("/api/devices", require("./routes/devices"));
-app.use("/api/receipts", require("./routes/receipts"));
-app.use("/api/fiscal", require("./routes/fiscal"));
-app.use("/api/taxpayer", require("./routes/taxpayers"));
-app.use("/api/subdomains", require("./routes/subdomains"));
-app.use("/api/subscriptions", require("./routes/subscriptions"));
+// API Routes with enhanced error handling
+const routeFiles = [
+  { path: "/api/auth", file: "./routes/auth" },
+  { path: "/api/users", file: "./routes/users" },
+  { path: "/api/devices", file: "./routes/devices" },
+  { path: "/api/receipts", file: "./routes/receipts" },
+  { path: "/api/fiscal", file: "./routes/fiscal" },
+  { path: "/api/taxpayer", file: "./routes/taxpayers" },
+  { path: "/api/subdomains", file: "./routes/subdomains" },
+  { path: "/api/subscriptions", file: "./routes/subscriptions" },
+];
+
+routeFiles.forEach(({ path, file }) => {
+  try {
+    console.log(`Attempting to mount routes from ${file} at ${path}`);
+    const router = require(file);
+    if (router && typeof router === "function") {
+      app.use(path, router);
+      console.log(`Successfully mounted routes at ${path}`);
+    } else {
+      console.error(`Invalid router exported from ${file}`);
+    }
+  } catch (err) {
+    console.error(`Error mounting routes from ${file}:`, err);
+    // You might want to exit the process here if route mounting fails
+    process.exit(1);
+  }
+});
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

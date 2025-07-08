@@ -326,57 +326,58 @@ router.post("/webhook/payment", async (req, res) => {
     });
   }
 });
+
 // Create subscription
-router.post("/", async (req, res) => {
-  try {
-    const { subscription, taxpayer, planType, amount, paidAt } = req.body;
+// router.post("/", async (req, res) => {
+//   try {
+//     const { subscription, taxpayer, planType, amount, paidAt } = req.body;
 
-    // Validate input
-    if (!subscription || !taxpayer || !planType || !amount) {
-      return res.status(400).json({
-        success: false,
-        message: "Subscription, taxpayer, planType and amount are required",
-      });
-    }
+//     // Validate input
+//     if (!subscription || !taxpayer || !planType || !amount) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Subscription, taxpayer, planType and amount are required",
+//       });
+//     }
 
-    // Check if taxpayer exists
-    const taxpayerExists = await Taxpayer.findById(taxpayer);
-    if (!taxpayerExists) {
-      return res.status(404).json({
-        success: false,
-        message: "Taxpayer not found",
-      });
-    }
+//     // Check if taxpayer exists
+//     const taxpayerExists = await Taxpayer.findById(taxpayer);
+//     if (!taxpayerExists) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "Taxpayer not found",
+//       });
+//     }
 
-    // Create new subscription
-    const newSubscription = new Subscription({
-      subscription,
-      taxpayer,
-      planType,
-      amount,
-      paidAt: paidAt || new Date(),
-      // endsAt will be auto-calculated in pre-save hook
-    });
+//     // Create new subscription
+//     const newSubscription = new Subscription({
+//       subscription,
+//       taxpayer,
+//       planType,
+//       amount,
+//       paidAt: paidAt || new Date(),
+//       // endsAt will be auto-calculated in pre-save hook
+//     });
 
-    await newSubscription.save();
+//     await newSubscription.save();
 
-    res.status(201).json({
-      success: true,
-      data: newSubscription,
-    });
-  } catch (err) {
-    if (err.code === 11000) {
-      return res.status(400).json({
-        success: false,
-        message: "Subscription already exists",
-      });
-    }
-    res.status(500).json({
-      success: false,
-      message: err.message || "Server error",
-    });
-  }
-});
+//     res.status(201).json({
+//       success: true,
+//       data: newSubscription,
+//     });
+//   } catch (err) {
+//     if (err.code === 11000) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Subscription already exists",
+//       });
+//     }
+//     res.status(500).json({
+//       success: false,
+//       message: err.message || "Server error",
+//     });
+//   }
+// });
 
 // Get all active subscriptions for a taxpayer
 router.get("/taxpayer/:taxpayerId/active", async (req, res) => {
