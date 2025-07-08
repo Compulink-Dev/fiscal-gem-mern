@@ -113,4 +113,5 @@ router.get("/:deviceID", protect, async (req, res) => {
     });
   }
 });
+
 module.exports = router;
