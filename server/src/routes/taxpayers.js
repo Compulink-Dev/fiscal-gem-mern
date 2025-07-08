@@ -90,9 +90,27 @@ router.get("/id/:id", protect, async (req, res) => {
   }
 });
 
-// Keep existing route for deviceID lookup
+// Get taxpayer by deviceID
 router.get("/:deviceID", protect, async (req, res) => {
-  // ... existing implementation
-});
+  try {
+    const taxpayer = await Taxpayer.findOne({ deviceID: req.params.deviceID });
+    if (!taxpayer) {
+      return res.status(404).json({
+        success: false,
+        message: "Taxpayer not found for this device",
+      });
+    }
 
+    res.json({
+      success: true,
+      data: taxpayer,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+});
 module.exports = router;
