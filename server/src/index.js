@@ -53,7 +53,11 @@ routeFiles.forEach(({ path, file }) => {
   try {
     console.log(`Attempting to mount routes from ${file} at ${path}`);
     const router = require(file);
-    if (router && typeof router === "function") {
+    if (
+      router &&
+      typeof router === "object" &&
+      typeof router.use === "function"
+    ) {
       app.use(path, router);
       console.log(`Successfully mounted routes at ${path}`);
     } else {
@@ -66,13 +70,13 @@ routeFiles.forEach(({ path, file }) => {
   }
 });
 
-// Serve static assets if in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+// // Serve static assets if in production
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
