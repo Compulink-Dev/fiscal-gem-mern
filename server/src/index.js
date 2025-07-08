@@ -37,43 +37,33 @@ const FiscalCounter = require("./models/FiscalCounter");
 const Taxpayer = require("./models/Taxpayer");
 
 // API Routes
-// API Routes with enhanced error handling
-const routeFiles = [
-  { path: "/api/auth", file: "./routes/auth" },
-  { path: "/api/users", file: "./routes/users" },
-  { path: "/api/devices", file: "./routes/devices" },
-  { path: "/api/receipts", file: "./routes/receipts" },
-  { path: "/api/fiscal", file: "./routes/fiscal" },
-  { path: "/api/taxpayer", file: "./routes/taxpayers" },
-  { path: "/api/subdomains", file: "./routes/subdomains" },
-  { path: "/api/subscriptions", file: "./routes/subscriptions" },
+// API Routes with debugging
+const routes = [
+  { path: "/api/auth", router: require("./routes/auth") },
+  { path: "/api/users", router: require("./routes/users") },
+  { path: "/api/devices", router: require("./routes/devices") },
+  { path: "/api/receipts", router: require("./routes/receipts") },
+  { path: "/api/fiscal", router: require("./routes/fiscal") },
+  { path: "/api/taxpayer", router: require("./routes/taxpayers") },
+  { path: "/api/subdomains", router: require("./routes/subdomains") },
+  { path: "/api/subscriptions", router: require("./routes/subscriptions") },
 ];
 
-routeFiles.forEach(({ path, file }) => {
-  try {
-    console.log(`Attempting to mount routes from ${file} at ${path}`);
-    const router = require(file);
-
-    // Just check router is defined and is an object (Express routers are objects)
-    if (router && typeof router === "object") {
-      app.use(path, router);
-      console.log(`Successfully mounted routes at ${path}`);
-    } else {
-      console.error(`Invalid router exported from ${file}`);
-    }
-  } catch (err) {
-    console.error(`Error mounting routes from ${file}:`, err);
-    process.exit(1);
-  }
+routes.forEach(({ path, router }) => {
+  console.log(`Mounting routes at ${path}`);
+  app.use(path, router);
 });
 
-// // Serve static assets if in production
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-//   });
-// }
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+  // Serve static files
+  app.use(express.static(path.join(__dirname, "client", "build")));
+
+  // Handle React routing, return all requests to React app
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
