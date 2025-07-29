@@ -1,5 +1,5 @@
 // models/Subscription.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const SubscriptionSchema = new mongoose.Schema(
   {
@@ -111,4 +111,6 @@ SubscriptionSchema.methods.daysRemaining = function () {
   return Math.ceil((this.endsAt - new Date()) / (1000 * 60 * 60 * 24));
 };
 
-module.exports = mongoose.model("Subscription", SubscriptionSchema);
+const Subscription = mongoose.model("Subscription", SubscriptionSchema);
+
+export default Subscription;

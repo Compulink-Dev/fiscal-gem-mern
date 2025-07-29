@@ -1,21 +1,49 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const fs = require("fs");
-const crypto = require("crypto");
-const forge = require("node-forge");
-const { KJUR, hextob64 } = require("jsrsasign");
-const { connectToDB } = require("./lib/mongoose");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import path from "path";
+import cookieParser from "cookie-parser";
+import { connectToDB } from "./lib/mongoose/index.js";
+
+// Import models
+// import Device from "./models/Device";
+// import Receipt from "./models/Receipt";
+// import FiscalCounter from "./models/FiscalCounter";
+// import Taxpayer from "./models/Taxpayer";
+
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import deviceRoutes from "./routes/devices.js";
+import receiptRoutes from "./routes/receipts.js";
+import fiscalRoutes from "./routes/fiscal.js";
+import taxpayerRoutes from "./routes/taxpayers.js";
+import subdomainRoutes from "./routes/subdomains.js";
+import subscriptionRoutes from "./routes/subscriptions.js";
 
 const app = express();
 dotenv.config();
 
+console.log("Origins : ", process.env.CLIENT_URL);
+
+const allowedOrigins = [
+  "http://localhost:3000", // web dev
+  "http://localhost:5174",
+  "http://192.168.0.186:19000", // Expo Go Dev
+  "http://192.168.0.186:8081", // Metro Bundler
+  process.env.CLIENT_URL, // From .env
+];
+
 // Middleware
+
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log("Blocked CORS request from:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -30,23 +58,17 @@ app.use(cookieParser());
 // Connect to MongoDB
 connectToDB();
 
-// Import models
-const Device = require("./models/Device");
-const Receipt = require("./models/Receipt");
-const FiscalCounter = require("./models/FiscalCounter");
-const Taxpayer = require("./models/Taxpayer");
-
 // API Routes
 // API Routes with debugging
 const routes = [
-  { path: "/api/auth", router: require("./routes/auth") },
-  { path: "/api/users", router: require("./routes/users") },
-  { path: "/api/devices", router: require("./routes/devices") },
-  { path: "/api/receipts", router: require("./routes/receipts") },
-  { path: "/api/fiscal", router: require("./routes/fiscal") },
-  { path: "/api/taxpayer", router: require("./routes/taxpayers") },
-  { path: "/api/subdomains", router: require("./routes/subdomains") },
-  { path: "/api/subscriptions", router: require("./routes/subscriptions") },
+  { path: "/api/auth", router: authRoutes },
+  { path: "/api/users", router: userRoutes },
+  { path: "/api/devices", router: deviceRoutes },
+  { path: "/api/receipts", router: receiptRoutes },
+  { path: "/api/fiscal", router: fiscalRoutes },
+  { path: "/api/taxpayer", router: taxpayerRoutes },
+  { path: "/api/subdomains", router: subdomainRoutes },
+  { path: "/api/subscriptions", router: subscriptionRoutes },
 ];
 
 routes.forEach(({ path, router }) => {

@@ -1,7 +1,7 @@
 // models/User.js
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -99,4 +99,6 @@ UserSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-module.exports = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+
+export default User;

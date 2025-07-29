@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const FiscalCounterSchema = new mongoose.Schema(
   {
@@ -41,4 +41,6 @@ const FiscalCounterSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("FiscalCounter", FiscalCounterSchema);
+const FiscalCounter = mongoose.model("FiscalCounter", FiscalCounterSchema);
+
+export default FiscalCounter;

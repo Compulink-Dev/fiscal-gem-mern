@@ -1,13 +1,14 @@
 // routes/auth.js
-const express = require("express");
+import express from "express";
+import User from "../models/User.js";
+import Taxpayer from "../models/Taxpayer.js";
+import ErrorResponse from "../lib/errorResponse.js";
+import asyncHandler from "../middleware/async.js";
+// import { sendEmail } = from "../utils/sendEmail";
+import crypto from "crypto";
+import { protect } from "../middleware/auth.js";
+
 const router = express.Router();
-const User = require("../models/User");
-const Taxpayer = require("../models/Taxpayer");
-const ErrorResponse = require("../lib/errorResponse");
-const asyncHandler = require("../middleware/async");
-// const { sendEmail } = require("../utils/sendEmail");
-const crypto = require("crypto");
-const { protect } = require("../middleware/auth");
 
 // Helper function
 const sendTokenResponse = (user, statusCode, res) => {
@@ -43,6 +44,9 @@ const sendTokenResponse = (user, statusCode, res) => {
 // @desc    Register user
 // @route   POST /api/v1/auth/register
 // @access  Public
+// @desc    Register user
+// @route   POST /api/v1/auth/register
+// @access  Public
 router.post(
   "/register",
   asyncHandler(async (req, res, next) => {
@@ -53,6 +57,14 @@ router.post(
     if (!taxpayer) {
       return next(
         new ErrorResponse(`Taxpayer not found with id ${tenant}`, 404)
+      );
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return next(
+        new ErrorResponse(`User already exists with email ${email}`, 400)
       );
     }
 
@@ -212,4 +224,4 @@ router.get(
   })
 );
 
-module.exports = router;
+export default router;

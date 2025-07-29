@@ -1,11 +1,13 @@
 // routes/users.js
-const express = require("express");
+import express from "express";
+import dotenv from "dotenv";
+import User from "../models/User.js";
+import { protect, authorize, setTenantContext } from "../middleware/auth.js";
+import { tenantAuth } from "../middleware/tenant.js";
+import asyncHandler from "../middleware/async.js";
+dotenv.config();
+
 const router = express.Router();
-const User = require("../models/User");
-const { protect, authorize, setTenantContext } = require("../middleware/auth");
-const { tenantAuth } = require("../middleware/tenant");
-const asyncHandler = require("../middleware/async");
-require("dotenv").config();
 
 // Apply tenant context to all routes
 router.use(protect);
@@ -123,4 +125,4 @@ router.delete(
   })
 );
 
-module.exports = router;
+export default router;

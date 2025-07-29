@@ -1,6 +1,6 @@
 // services/subscriptionService.js
-const Subscription = require("../models/Subscription");
-const { sendEmail } = require("./emailService");
+import Subscription from "../models/Subscription.js";
+import { sendEmail } from "./emailService.js";
 
 // Check for expiring subscriptions and send reminders
 async function checkExpiringSubscriptions() {
@@ -36,7 +36,7 @@ async function processRenewals() {
   }
 }
 
-module.exports = {
+export default {
   checkExpiringSubscriptions,
   processRenewals,
 };

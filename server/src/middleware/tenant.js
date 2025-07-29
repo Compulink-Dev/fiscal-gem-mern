@@ -1,12 +1,12 @@
 // middleware/tenant.js
-const ErrorResponse = require("../lib/errorResponse");
-const asyncHandler = require("./async");
-const User = require("../models/User");
+import ErrorResponse from "../lib/errorResponse.js";
+import asyncHandler from "./async.js";
+import User from "../models/User.js";
 
 // @desc    Check if user belongs to tenant
 // @route   ALL
 // @access  Private
-exports.tenantAuth = asyncHandler(async (req, res, next) => {
+export const tenantAuth = asyncHandler(async (req, res, next) => {
   // Skip for superadmin
   if (req.user.role === "superadmin") {
     return next();
@@ -32,7 +32,7 @@ exports.tenantAuth = asyncHandler(async (req, res, next) => {
 // @desc    Set tenant context for all requests
 // @route   ALL
 // @access  Private
-exports.setTenantContext = asyncHandler(async (req, res, next) => {
+export const setTenantContext = asyncHandler(async (req, res, next) => {
   if (req.user) {
     req.tenant = req.user.tenant;
   }

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const TaxpayerSchema = new mongoose.Schema(
   {
@@ -25,4 +25,6 @@ const TaxpayerSchema = new mongoose.Schema(
 );
 
 // Check if model already exists before creating it
-module.exports = mongoose.model("Taxpayer", TaxpayerSchema);
+const Taxpayer = mongoose.model("Taxpayer", TaxpayerSchema);
+
+export default Taxpayer;

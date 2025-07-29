@@ -1,11 +1,11 @@
 // middleware/auth.js
-const ErrorResponse = require("../lib/errorResponse");
-const asyncHandler = require("./async");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+import ErrorResponse from "../lib/errorResponse.js";
+import asyncHandler from "./async.js";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 // middleware/auth.js
-exports.protect = asyncHandler(async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
   let token;
 
   // 1. Get token from header
@@ -42,7 +42,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
 });
 
 // Grant access to specific roles
-exports.authorize = (...roles) => {
+export const authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return next(
@@ -57,7 +57,7 @@ exports.authorize = (...roles) => {
 };
 
 // Add this function
-exports.setTenantContext = (req, res, next) => {
+export const setTenantContext = (req, res, next) => {
   // You can expand this logic if needed
   // For now, we assume `req.user.tenant` is already set in the `protect` middleware
   if (!req.user || !req.user.tenant) {

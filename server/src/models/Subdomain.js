@@ -1,5 +1,5 @@
 // models/Subdomain.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const SubdomainSchema = new mongoose.Schema(
   {
@@ -22,4 +22,6 @@ const SubdomainSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Subdomain", SubdomainSchema);
+const Subdomain = mongoose.model("Subdomain", SubdomainSchema);
+
+export default Subdomain;
