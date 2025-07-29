@@ -28,6 +28,7 @@ console.log("Origins : ", process.env.CLIENT_URL);
 const allowedOrigins = [
   "http://localhost:3000", // web dev
   "http://localhost:5174",
+  "http://localhost:5173",
   "http://192.168.0.186:19000", // Expo Go Dev
   "http://192.168.0.186:8081", // Metro Bundler
   process.env.CLIENT_URL, // From .env
