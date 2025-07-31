@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://localhost:5000; script-src 'self' 'unsafe-inline';  style-src 'self' 'unsafe-inline'; img-src 'self' data:">
   <title>Invoice App</title>
 </head>
 <body>
@@ -11,3 +11,19 @@
   <script type="module" src="/src/renderer/renderer.tsx"></script>
 </body>
 </html>
+
+<!-- https://fiscal-gem-mern.onrender.com -->
+<!-- <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline';
+  connect-src 'self' https://fiscal-gem-mern.onrender.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data:
+"> -->
+
+
+<!-- original -->
+   <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';  style-src 'self' 'unsafe-inline'; img-src 'self' data:" /> -->
+
+<!-- http://localhost:5000; -->
+<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://localhost:5000;script-src 'self' 'unsafe-inline';  style-src 'self' 'unsafe-inline'; img-src 'self' data:"> -->

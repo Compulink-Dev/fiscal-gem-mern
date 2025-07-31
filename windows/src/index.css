@@ -36,3 +36,356 @@ body {
   flex: 1;
   padding: 20px;
 }
+
+/* src/styles/AppLayout.css */
+
+/* Base layout container */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  background-color: #378a34;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+.user-avatar {
+  background-color: #014701;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.user-name,
+.user-email {
+  font-size: 0.875rem;
+}
+
+.nav-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.nav-item {
+  margin-bottom: 15px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 1rem;
+  color: #ddd;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.nav-active {
+    display: flex;
+    width: 100%;
+  align-items: center;
+    border-radius: 8px;
+    padding-left: 8px;
+  background-color: #014701;
+  color: #fff;
+}
+
+.nav-inactive {
+    display: flex;
+    width: 100%;
+       padding-left: 8px;
+        border-radius: 8px;
+  align-items: center;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #444;
+    color: #fff;
+  }
+}
+
+.nav-icon {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+}
+
+.nav-title {
+  font-size: 12px;
+}
+
+.logout-button {
+  background-color: transparent;
+  color: #ddd;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  justify-content: flex-start;
+  margin-top: auto;
+}
+
+.logout-button:hover {
+  background-color: #444;
+}
+
+/* Main content styles */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center{
+  align-items: center;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+.justify-between{
+  justify-content: space-between;
+}
+
+.fiscal-value{
+  font-size: 12px;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title{
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.dashboard-container {
+  padding: 20px;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #2d3748;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card h3 {
+  margin-top: 0;
+  color: #4a5568;
+}
+
+.dashboard-card p {
+  color: #718096;
+}
+
+/* dashboard.css */
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.fiscal-day-status, .taxpayer-info, .recent-receipts, .fiscal-counters {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.loading-container, .login-redirect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100vh;
+}
+
+.error-message, .device-not-found {
+  color: red;
+  text-align: center;
+  padding: 20px;
+}
+
+.taxpayer-not-available {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.taxpayer-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.custom-style {
+  border: 1px solid #ccc; /* You can adjust the color to fit your design */
+  padding: 1rem; /* Equivalent to p-4 */
+  border-radius: 0.5rem; /* Equivalent to rounded-lg */
+  display: grid;
+  gap: 0.5rem; /* Equivalent to space-y-2 */
+}
+
+.indicator-open{
+  font-weight: bold;
+  color: #014701;
+}
+
+.indicator-closed{
+  font-weight: bold;
+  color: red;
+}
+
+.error{
+  font-size: 12px;
+  color: red;
+}
+
+.animate-spin {
+  width: 20px;
+  height: 20px;
+  animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+  /* transform: rotate(3deg); */
+   /* transform: rotate(0.3rad);/ */
+   /* transform: rotate(3grad); */ 
+   /* transform: rotate(.03turn);  */
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.invoices-container {
+  padding: 12px;
+  max-width: 100vh;
+  margin: auto;
+}
+
+.invoices-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.invoice-card {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+  background-color: #fff;
+}
+
+.invoice-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.customer-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.invoice-date,
+.invoice-total {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.invoice-items {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.status-message {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+.status-message.error {
+  color: red;
+}

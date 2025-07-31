@@ -16,9 +16,10 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       style={{
-        padding: "10px 20px",
-        backgroundColor: "#007bff",
+        padding: "6px 12px",
+        backgroundColor: "#0F4D0F",
         color: "#fff",
+        fontSize: "10px",
         border: "none",
         borderRadius: "4px",
         cursor: "pointer",
